@@ -2,7 +2,7 @@
 
 wget https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img -O /var/lib/vz/images/noble-server-cloudimg-amd64.img
 
-mv /var/lib/vz/images/noble-server-cloudimg-amd64.img /var/lib/vz/images/noble-server-cloudimg-arm64.qcow2
+mv /var/lib/vz/images/noble-server-cloudimg-amd64.img /var/lib/vz/images/noble-server-cloudimg-amd64.qcow2
 
 virt-customize --add /var/lib/vz/images/noble-server-cloudimg-amd64.qcow2 --install qemu-guest-agent
 
