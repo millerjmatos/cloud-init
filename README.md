@@ -35,10 +35,11 @@ chmod +x create-template.sh
 
 ## Configuration
 
-The script creates a VM template (ID: 6001) with:
+The script creates a VM template (basically) with:
 - 2 CPU cores (x86-64-v2-AES)
 - 2GB RAM
 - VirtIO network bridge (vmbr0)
+- At least 30GB disk space guaranteed
 - OVMF BIOS with pre-enrolled keys
 - Cloud-init ready
 
