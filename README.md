@@ -1,0 +1,2 @@
+# cloud-init
+vm automation
