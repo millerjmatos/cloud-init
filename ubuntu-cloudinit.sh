@@ -30,6 +30,6 @@ qm set 6002 \
   --vga serial0 \
   --ipconfig0 ip=dhcp \
   --ciuser muller \
-  --cipassword 'P@ssword'
+  --cipassword 'P@ssword123'
 
 qm template 6002
