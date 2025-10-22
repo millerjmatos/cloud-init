@@ -31,7 +31,7 @@ chmod +x create-template.sh
 ./create-template.sh
 ```
 
-3. Deploy new VMs from template in ~30 seconds ✓
+3. Deploy new VMs from template in ~30 seconds (just clone the template) ✓
 
 ## Configuration
 
