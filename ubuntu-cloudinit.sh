@@ -6,7 +6,7 @@ mv /var/lib/vz/images/noble-server-cloudimg-amd64.img /var/lib/vz/images/noble-s
 
 virt-customize --add /var/lib/vz/images/noble-server-cloudimg-amd64.qcow2 --install qemu-guest-agent
 
-qemu-img resize noble-server-cloudimg-amd64.qcow2 +30G
+qemu-img resize /var/lib/vz/images/noble-server-cloudimg-amd64.qcow2 +30G
 
 qm create 6002 \
   --name vm-ubuntu \
