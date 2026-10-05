@@ -20,21 +20,31 @@ apt install libguestfs-tools -y
 
 ## Usage
 
-1. Make the script executable:
+1. Create your local config from the example (it is git-ignored, never commit it):
 ```bash
-chmod +x create-template.sh
+cp cloudinit.env.example cloudinit.env
+chmod 600 cloudinit.env
 ```
 
-2. Run the script:
+2. Edit `cloudinit.env` and set at least `CI_USER` and `CI_SSHKEYS` (path to your public key).
+
+3. Run the script for the distro you want:
 ```bash
-./create-template.sh
+chmod +x ubuntu-cloudinit.sh
+./ubuntu-cloudinit.sh
 ```
 
-3. Clone the template to deploy new VMs in ~30 seconds.
+4. Clone the template to deploy new VMs in ~30 seconds.
+
+Settings can also come from environment variables or another file:
+```bash
+CI_USER=admin CI_SSHKEYS=~/.ssh/id_ed25519.pub ./rocky10-cloudinit.sh
+ENV_FILE=/secure/path/cloudinit.env ./ol9-cloudinit.sh
+```
 
 ## Configuration
 
-The script creates a VM template with the following defaults - customize cloud-init credentials before running:
+The script creates a VM template with the following defaults:
 
 - 2 CPU cores (x86-64-v2-AES)
 - 2GB RAM
@@ -42,6 +52,12 @@ The script creates a VM template with the following defaults - customize cloud-i
 - 30GB disk space minimum
 - OVMF BIOS with pre-enrolled keys
 - Cloud-init ready
+
+## Security
+
+- No credentials are stored in this repository. They are read from `cloudinit.env` or the environment.
+- Access is key-based by default (`--sshkeys`). `CI_PASSWORD` is optional. Leave it empty unless you need console login.
+- If you set a password, prefer a SHA-512 hash (`openssl passwd -6`) over plain text. Every VM cloned from the template inherits it.
 
 ___
 Created by [Muller Matos](https://linktr.ee/millerjmatos)

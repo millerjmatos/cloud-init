@@ -1,4 +1,15 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -euo pipefail
+
+ENV_FILE="${ENV_FILE:-$(dirname "$0")/cloudinit.env}"
+[ -f "$ENV_FILE" ] && . "$ENV_FILE"
+
+: "${CI_USER:?Defina CI_USER (veja cloudinit.env.example)}"
+: "${CI_SSHKEYS:?Defina CI_SSHKEYS com o caminho da chave publica SSH}"
+[ -r "$CI_SSHKEYS" ] || { echo "Chave publica nao encontrada: $CI_SSHKEYS" >&2; exit 1; }
+
+CI_AUTH=(--ciuser "$CI_USER" --sshkeys "$CI_SSHKEYS")
+[ -n "${CI_PASSWORD:-}" ] && CI_AUTH+=(--cipassword "$CI_PASSWORD")
 
 wget https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img -O /var/lib/vz/images/noble-server-cloudimg-amd64.img
 
@@ -29,7 +40,6 @@ qm set 6002 \
   --serial0 socket \
   --vga serial0 \
   --ipconfig0 ip=dhcp \
-  --ciuser muller \
-  --cipassword '***REMOVED***'
+  "${CI_AUTH[@]}"
 
 qm template 6002
